@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        java-version: [ 11, 17, 18-ea ]
+        java-version: [ 17, 18-ea ]
         java-distribution: [ 'zulu', 'adopt' ]
 
     #Job's steps
