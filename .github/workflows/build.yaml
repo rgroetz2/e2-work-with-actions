@@ -11,14 +11,20 @@ jobs:
   #Test's job
   tests:
     name: Unit tests
-    #Run on Ubuntu using the latest version
-    runs-on: ubuntu-latest
-
+    
     strategy:
+      max-parallel: 2
       matrix:
+        os: ubuntu-latest
         java-version: [ 17, 18 ]
         java-distribution: [ 'zulu', 'adopt' ]
-
+        include:
+        - os: windows-latest
+          java-version: 19
+          java-distribution: zulu
+    
+    - runs-on: ${{ matrix.os }}
+    
     #Job's steps
     steps:
       #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
@@ -38,7 +44,16 @@ jobs:
         run: chmod +x gradlew
       
       - name: Test
-        run: ./gradlew test --tests "*"
+        run: |
+              if [ "$RUNNER_OS" == "Windows" ]; then
+                gradlew.exe test --tests "*"
+              elif [ "$RUNNER_OS" == "Linux" ]; then
+                ./gradlew test --tests "*"
+              else 
+                echo "$RUNNER_OS not supported"
+                exit 1
+              fi
+        shell: bash
       
       - name: Build
         run: ./gradlew build
