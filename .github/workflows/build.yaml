@@ -13,17 +13,23 @@ jobs:
     name: Unit tests
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        java-version: [ 11, 17, 18-ea ]
+        java-distribution: [ 'Zulu', 'adopt' ]
+
     #Job's steps
     steps:
       #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
       - uses: actions/checkout@v3
       
       #Set up JDK 17
-      - name: Set up JDK
+      - name: Set up JDK with distribution ${{ matrix.java-distribution }} and version ${{ matrix.java-version }}
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
-          distribution: 'adopt'
+          java-version: ${{ matrix.java-version }}
+          distribution: ${{ matrix.java-distribution }}
       
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
