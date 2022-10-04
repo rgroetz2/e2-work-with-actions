@@ -45,7 +45,7 @@ jobs:
       - name: Test
         run: |
               if [ "$RUNNER_OS" == "Windows" ]; then
-                gradlew.exe test --tests "*"
+                gradlew.bat test --tests "*"
               elif [ "$RUNNER_OS" == "Linux" ]; then
                 ./gradlew test --tests "*"
               else 
