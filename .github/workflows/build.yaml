@@ -17,23 +17,56 @@ jobs:
     steps:
       #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
       - uses: actions/checkout@v1
+      
       #Set up JDK 11
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
           java-version: '11'
           distribution: 'adopt'
+      
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
-      - name: Test with Gradle
-        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      
+      - name: Grant Permissions to gradlew
+        run: chmod +x gradlew
+      
+      - name: Test
+        run: ./gradlew test --tests "*"
+      
+      - name: Test Success
+        if: success()
+        uses: actions/github-script@0.2.0
         with:
-          arguments: test
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+          github-token: ${{ github.token }}
+          script: |
+            const pull_number = "${{github.event.number}}"
+            await github.pulls.createReview({
+              ...context.repo,
+              pull_number,
+              body: "All tests passed.",
+              event: "APPROVE"
+            })
+      - name: Test Fail
+        if: failure()
+        uses: actions/github-script@0.2.0
         with:
-          arguments: build -x test
-        - uses: actions/upload-artifact@v3
-          with:
-            name: Package
-            path: build/libs
+          github-token: ${{ github.token }}
+          script: |
+            const pull_number = "${{github.event.number}}"
+            await github.pulls.createReview({
+              ...context.repo,
+              pull_number,
+              body: "There is something wrong with test codes.",
+             event: "REQUEST_CHANGES"
+            })
+            await github.pulls.update({
+              ...context.repo,
+              pull_number,
+              state: "closed"
+            })
+
+ #     - uses: actions/upload-artifact@v3
+  #        with:
+   #         name: Package
+    #        path: build/libs
