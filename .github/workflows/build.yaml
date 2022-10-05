@@ -61,9 +61,9 @@ jobs:
       - name: Test
         run: |
               if [ "$RUNNER_OS" == "Windows" ]; then
-                echo "Now are running in Windows"
+                echo "Now are running in Windows - end the job here"
                 whoami
-                exit 1
+                exit 0
               elif [ "$RUNNER_OS" == "Linux" ]; then
                 ./gradlew test --tests "*"
               else 
