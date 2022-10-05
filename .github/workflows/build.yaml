@@ -13,6 +13,7 @@ jobs:
     
     strategy:
       max-parallel: 3
+      fail-fast: true
       matrix:
         os: [ ubuntu-latest ]
         java-version: [ 17, 18 ]
