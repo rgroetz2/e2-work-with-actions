@@ -49,8 +49,7 @@ jobs:
               if [ "$RUNNER_OS" == "Windows" ]; then
                 echo "Now are running in Windows"
                 whoami
-                exit 1
-              elif [ "$RUNNER_OS" == "Linux" && "$java-version" == 17 ]; then
+              elif [ "$RUNNER_OS" == "Linux" ]; then
                 ./gradlew test --tests "*"
               else 
                 echo "No tests on the OS= $RUNNER_OS !"
@@ -58,13 +57,15 @@ jobs:
               fi
         shell: bash
       
-      - name: Build
+      - if: ${{ matrix.os }} == "ubuntu-latest"
+        name: Build
         run: ./gradlew build
       
       - name: List Build Results
         run: ls -ltr build
 
-      - uses: actions/upload-artifact@v3
+      - if: ${{ matrix.os == "ubuntu-latest" && java-version == 17 }} #github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v3
         with:
           name: Package
           path: build/libs
