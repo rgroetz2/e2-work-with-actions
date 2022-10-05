@@ -62,6 +62,6 @@ jobs:
         run: ls -ltr build
 
       - uses: actions/upload-artifact@v3
-          with:
-            name: Package
-            path: build/libs
+        with:
+          name: Package
+          path: build/libs
