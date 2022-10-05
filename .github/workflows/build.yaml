@@ -57,14 +57,14 @@ jobs:
               fi
         shell: bash
       
-      - if: ${{ matrix.os }} == "ubuntu-latest"
+      - if: ${{ matrix.os == 'ubuntu-latest' }} 
         name: Build
         run: ./gradlew build
       
       - name: List Build Results
         run: ls -ltr build
 
-      - if: ${{ matrix.os == "ubuntu-latest" && java-version == 17 }} #github.event_name == 'pull_request'
+      - if: ${{ matrix.os == 'ubuntu-latest' && java-version == 17 }} #github.event_name == 'pull_request'
         uses: actions/upload-artifact@v3
         with:
           name: Package
