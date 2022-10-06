@@ -1,4 +1,20 @@
 # e2-work-with-actions
+In diesem Repository arbeiten wir mit Github Actions! <br> 
+Hierbei handelt es sich um eine simple Java Spring Boot API. <br> 
+
+Folgende Tätigkeiten werden wir durchführen. <br> 
+* Arbeiten mit Matrixen
+* Arbeiten mit Caching
+* Arbeiten Job Abhängigkeiten 
+* Verwenden einer Github Action vom Marketplace
+* Github Action via API Call triggern mit Postman
+* Builden der Application
+* Hochladen des Artefacts
+
+Um mit den Übungen zu starten muss als erstes das Repository "geforkt" werden. <br>
+Danach wird am eigenen Fork gearbeitet. 
+
+## Übung 1: Arbeiten mit Matrixen
 
 
 
