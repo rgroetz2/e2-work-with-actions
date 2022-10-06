@@ -18,10 +18,6 @@ jobs:
         os: [ ubuntu-latest ]
         java-version: [ 17, 18 ]
         java-distribution: [ 'zulu', 'adopt' ]
-        include:
-        - os: windows-latest
-          java-version: 19
-          java-distribution: zulu
     
     runs-on: ${{ matrix.os }}
     
@@ -60,10 +56,7 @@ jobs:
       
       - name: Test
         run: |
-              if [ "$RUNNER_OS" == "Windows" ]; then
-                echo "Now are running in Windows - end the job here"
-                exit 0
-              elif [ "$RUNNER_OS" == "Linux" ]; then
+              if [ "$RUNNER_OS" == "Linux" ]; then
                 ./gradlew test --tests "*"
               else 
                 echo "No tests on the OS= $RUNNER_OS !"
