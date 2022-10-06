@@ -1,6 +1,7 @@
 #Workflow name
 name: CI/CD Pipeline
 on:
+  repository_dispatch:
   #Manually trigger workflow runs
   workflow_dispatch:
   # TODO: Trigger the workflow on push from the main branch
