@@ -35,3 +35,14 @@ jobs:
     - name: Will never run
       run: |
         echo "If you can read this, the experiment failed"
+  
+  # TODO job4 soll von job1 abhängig sein
+  job4:
+    name: Job 4
+    needs: job1
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Dependant is Running
+      run: |
+        echo "Completed job 4, everything is great"
