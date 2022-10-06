@@ -15,6 +15,7 @@ jobs:
   # TODO job2 soll von job1 abhängig sein
   job2:
     name: Job 2
+    needs: job1
     runs-on: ubuntu-latest
 
     steps:
@@ -26,6 +27,7 @@ jobs:
   # TODO job3 soll von job2 abhängig sein
   job3:
     name: Job 3
+    needs: job2
     runs-on: ubuntu-latest
 
     steps:
