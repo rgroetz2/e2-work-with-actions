@@ -11,6 +11,7 @@ jobs:
   build:
     name: Build Job
     
+    # TODO: Erweitere die Matrix um Java 18 und das Betriebssystem MacOS
     strategy:
       matrix:
         os: [ ubuntu-latest ]
@@ -24,11 +25,11 @@ jobs:
       - name: Build Job OS ${{ matrix.os }} Java ${{ matrix.java-distribution }} mit Version ${{ matrix.java-version }}
         run: echo "Hallo ich bin der Build Job"
       
-      # Schritt 1: Repository auschecken
+      # TODO: Schritt 1: Repository auschecken
 
-      # Schritt 2: Java 17 installieren
+      # TODO: Schritt 2: Java 17 installieren
 
-      # Schritt 3: Build mit Gradle durchfÃ¼hren
+      # TODO: Schritt 3: Build mit Gradle durchführen
 
-      # (optional) Schritt 4: Artefact hochladen
+      # TODO: (optional) Schritt 4: Artefact hochladen
       
