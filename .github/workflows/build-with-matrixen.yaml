@@ -1,35 +1,33 @@
 #Workflow name
-name: CI/CD Pipeline
+name: Build mit Matrixen
 on:
   repository_dispatch:
   #Manually trigger workflow runs
   workflow_dispatch:
   # TODO: Trigger the workflow on push from the main branch
-  
 
 jobs:
   build:
     name: Build Job
-    
+
     # TODO: Erweitere die Matrix um Java 18 und das Betriebssystem MacOS
     strategy:
       matrix:
-        os: [ ubuntu-latest ]
-        java-version: [ 17 ]
-        java-distribution: [ 'zulu', 'adopt' ]
-    
+        os: [ubuntu-latest]
+        java-version: [17]
+        java-distribution: ['zulu', 'adopt']
+
     runs-on: ${{ matrix.os }}
-    
+
     #Job's steps
     steps:
       - name: Build Job OS ${{ matrix.os }} Java ${{ matrix.java-distribution }} mit Version ${{ matrix.java-version }}
         run: echo "Hallo ich bin der Build Job"
-      
+
       # TODO: Schritt 1: Repository auschecken
 
       # TODO: Schritt 2: Java 17 installieren
 
-      # TODO: Schritt 3: Build mit Gradle durchführen
+      # TODO: Schritt 3: Build mit Gradle durchfï¿½hren
 
       # TODO: (optional) Schritt 4: Artefact hochladen
-      
