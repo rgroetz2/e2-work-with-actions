@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Sleep and Run
-      run: |
-        echo "Sleeping for 10"
-        sleep 10
+      - name: Sleep and Run
+        run: |
+          echo "Sleeping for 10"
+          sleep 10
 
   # TODO job2 soll von job1 abhängig sein
   job2:
@@ -20,10 +20,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Dependant is Running
-      run: |
-        echo "Completed job 2, but triggering failure"
-        exit 1
+      - name: Dependant is Running
+        run: |
+          echo "Completed job 2, but triggering failure"
+          exit 1
 
   # TODO job3 soll von job2 abhängig sein
   job3:
@@ -32,10 +32,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Will never run
-      run: |
-        echo "If you can read this, the experiment failed"
-  
+      - name: Will never run
+        run: |
+          echo "If you can read this, the experiment failed"
+
   # TODO job4 soll von job1 abhängig sein
   job4:
     name: Job 4
@@ -43,6 +43,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Dependant is Running
-      run: |
-        echo "Completed job 4, everything is great"
+      - name: Dependant is Running
+        run: |
+          echo "Completed job 4, everything is great"

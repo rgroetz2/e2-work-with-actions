@@ -10,22 +10,22 @@ on:
 jobs:
   tests:
     name: Unit tests
-    
+
     strategy:
       max-parallel: 3
       fail-fast: false
       matrix:
-        os: [ ubuntu-latest ]
-        java-version: [ 17, 18 ]
-        java-distribution: [ 'zulu', 'adopt' ]
-    
+        os: [ubuntu-latest]
+        java-version: [17, 18]
+        java-distribution: ['zulu', 'adopt']
+
     runs-on: ${{ matrix.os }}
-    
+
     #Job's steps
     steps:
       #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
       - uses: actions/checkout@v3
-      
+
       #Set up JDK 17
       - name: Set up JDK with distribution ${{ matrix.java-distribution }} and version ${{ matrix.java-version }}
         uses: actions/setup-java@v3
@@ -33,7 +33,7 @@ jobs:
           java-version: ${{ matrix.java-version }}
           distribution: ${{ matrix.java-distribution }}
           cache: 'gradle'
-      
+
       # Cache Gradle dependencies
       - name: Setup Gradle Dependencies Cache
         uses: actions/cache@v2
@@ -50,24 +50,24 @@ jobs:
 
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
-      
+
       - name: Grant Permissions to gradlew
         run: chmod +x gradlew
-      
+
       - name: Test
         run: |
-              if [ "$RUNNER_OS" == "Linux" ]; then
-                ./gradlew test --tests "*"
-              else 
-                echo "No tests on the OS= $RUNNER_OS !"
-                exit 1
-              fi
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            ./gradlew test --tests "*"
+          else 
+            echo "No tests on the OS= $RUNNER_OS !"
+            exit 1
+          fi
         shell: bash
-      
-      - if: ${{ matrix.os == 'ubuntu-latest' }} 
+
+      - if: ${{ matrix.os == 'ubuntu-latest' }}
         name: Build
         run: ./gradlew build
-      
+
       - name: List Build Results
         run: ls -ltr build
 

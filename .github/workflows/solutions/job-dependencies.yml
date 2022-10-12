@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Sleep and Run
-      run: |
-        echo "Sleeping for 10"
-        sleep 10
+      - name: Sleep and Run
+        run: |
+          echo "Sleeping for 10"
+          sleep 10
 
   job2:
     name: Job 2
@@ -18,10 +18,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Dependant is Running
-      run: |
-        echo "Completed job 2, but triggering failure"
-        exit 1
+      - name: Dependant is Running
+        run: |
+          echo "Completed job 2, but triggering failure"
+          exit 1
 
   job3:
     name: Job 3
@@ -29,6 +29,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Will never run
-      run: |
-        echo "If you can read this, the experiment failed"
+      - name: Will never run
+        run: |
+          echo "If you can read this, the experiment failed"
+
+  job4:
+    name: Job 4
+    needs: job1
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Dependant is Running
+        run: |
+          echo "Completed job 4, everything is great"
